@@ -12,11 +12,41 @@ const client = new Discord.Client();
 
 client.cmds = new Map();
 client.cmdsAliases = new Map();
+client.modules = new Map();
 
-client.configuration = require("./src/configuration")(client)
+client.functions = require("./src/functions.js")(client);
+client.modulesLoader = require('./src/module-handler')(client);
+
+client.configuration = require("./src/configuration")(client);
 client.config = client.configuration;
 
-const client_boot = async () =>{
-    
+const { promisify } = require("util");
+const fs = require("fs");
+const readdir = promisify(fs.readdir);
+
+const boot = async () =>{
+    const categories = await readdir("./commands/");
+    categories.forEach(async category => {
+        client.log(`Reading category: ${category}`)
+        const commands = await readdir(`./commands/${category}`);
+        commands.forEach(cmd => {
+            if(!cmd.endsWith(".js") && !cmd.endsWith(".ts")) return;
+            try {
+                client.load("cmd", `${category}/${cmd}`)
+                client.log(`Loaded command ${cmd}`)
+            } catch (error) {
+                client.log(error.message)
+            }
+        })
+    });
+
+    const events = await readdir("./events/")
+    events.forEach(file => {
+        client.log(`Loading Event: ${file}`)
+        const event = require(`./events/${file}`)
+        client.on(file.split(".")[0], event.bind(null, client))
+    })
+
+    client.login(client.config.keys.token)
 }
-client_boot()
+boot()

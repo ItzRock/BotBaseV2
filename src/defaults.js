@@ -2,8 +2,8 @@ const defaults = {
     // General Settings
     prefix:  {
         name : "prefix",
-        value : ";",
-        valueType: String,
+        value : "?",
+        valueType: "string",
         category : "General",
         editable : true,
         premium : false
@@ -11,7 +11,7 @@ const defaults = {
     autorole:  {
         name : "autorole",
         value : undefined,
-        valueType: String,
+        valueType: "string",
         category : "General",
         editable : true,
         premium : false
@@ -19,7 +19,7 @@ const defaults = {
     welcoming:  {
         name : "welcoming",
         value : undefined,
-        valueType: Boolean,
+        valueType: "boolean",
         category : "General",
         editable : true,
         premium : false
@@ -27,7 +27,7 @@ const defaults = {
     "welcoming-channel":  {
         name : "welcoming-channel",
         value : undefined,
-        valueType: String,
+        valueType: "string",
         category : "General",
         editable : true,
         premium : false
@@ -35,7 +35,7 @@ const defaults = {
     "welcoming-text":  {
         name : "welcoming-text",
         value : undefined,
-        valueType: String,
+        valueType: "string",
         category : "General",
         editable : true,
         premium : false
@@ -46,7 +46,7 @@ const defaults = {
     admins:  {
         name : "admins",
         value : [],
-        valueType: Array,
+        valueType: "array",
         category : "Moderation",
         editable : true,
         premium : false
@@ -54,7 +54,7 @@ const defaults = {
     mods:  {
         name : "mods",
         value : [],
-        valueType: Array,
+        valueType: "array",
         category : "Moderation",
         editable : true,
         premium : false
@@ -62,7 +62,7 @@ const defaults = {
     logs: {
         name : "logs",
         value : undefined,
-        valueType: String,
+        valueType: "string",
         category : "Moderation",
         editable : true,
         premium : false
@@ -70,7 +70,7 @@ const defaults = {
     mutedrole: {
         name : "mutedrole",
         value : undefined,
-        valueType: String,
+        valueType: "string",
         category : "Moderation",
         editable : true,
         premium : false
@@ -81,7 +81,7 @@ const defaults = {
     premium: {
         name : "premium",
         value : false,
-        valueType: Boolean,
+        valueType: "boolean",
         category : "BotAdmin",
         editable : false,
         premium : false
@@ -89,7 +89,7 @@ const defaults = {
     disabledCMDS: {
         name : "disabledCMDS",
         value : [],
-        valueType: Array,
+        valueType: "array",
         category : "BotAdmin",
         editable : false,
         premium : false
@@ -97,7 +97,7 @@ const defaults = {
     mutedUsers: {
         name : "mutedUsers",
         value : [],
-        valueType: Array,
+        valueType: "array",
         category : "BotAdmin",
         editable : false,
         premium : false

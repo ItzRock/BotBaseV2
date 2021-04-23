@@ -14,6 +14,8 @@ const configuration = (client) => {
             check: "<:checkmark:833771519813484614>",
             ["!"]: "<:Exclamation:833788633918996490>",
             x: "<:X:833788610523824179>", 
+            ["-"]:"<:Denied:834926734730068008>", 
+            eval: "<:eval:834946086056493076>"
         },
 
         Operators: [
