@@ -16,6 +16,13 @@ module.exports = (client) => {
                     client.modules.set(path, mod);
                     return mod(client);
                 }
+                case "database": {
+                    const mod = require(`../modules/Database/modules/${path}`);
+                    if(mod.init) mod.init(client)
+                    client.database.set(path, mod);
+                    return mod(client);
+                }
+                
                 default: throw new Error(`${type} is not a valid loadable item.`);
             }
             

@@ -25,7 +25,10 @@ const configuration = (client) => {
         Database: {
             url: "mongodb://localhost:27017",
             login: "Hue",
-            password: keys.dbAccess
+            password: keys.dbAccess,
+            collections: {
+                ServerSettings: "server-settings",
+            }
         },
     }
     return config
