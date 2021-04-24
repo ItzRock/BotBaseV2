@@ -7,10 +7,10 @@ module.exports = async (client) => {
     const modules = await readdir('./modules/Database/modules')
     modules.forEach(moduleName => {
         try {
-            console.log(`Loading ${moduleName}`)
-            client.load("database", moduleName.replace(".js", ""));    
+            client.log(`Loading ${moduleName}`)
+            require(`./modules/${moduleName}`)(client)
         } catch (error) {
-            console.log(`${error.message}`) 
+            console.log(`An Error has occured. ${error.name} : ${error.message}`) 
         }
     })
     client.log(`All Database Modules have been loaded`);   

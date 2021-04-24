@@ -14,6 +14,7 @@ class command {
         this.requiredArguments = config.requiredArguments || 0
         this.premium = config.premium || false
         this.disableable = config.disableable || true
+        this.enabled = config.enabled || true
     }
 }
 module.exports = (client) => { client.command = command; }

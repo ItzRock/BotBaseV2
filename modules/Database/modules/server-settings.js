@@ -7,11 +7,11 @@ module.exports = (client) => {
     const url = databaseInfo.url
     const dbID = databaseInfo.DB
     
-    const collection = database.collections.ServerSettings;
+    const collection = databaseInfo.collections.ServerSettings;
 
     const functions = {
-        read: (guildID) => {
-            const promise = new Promise((resolve, reject) => {
+        read: async (guildID) => {
+            const promise = new Promise(async (resolve, reject) => {
                 const db = await connect(url);
                 const database = db.db(dbID);
                 const query = { GuildID: guildID }
@@ -20,7 +20,8 @@ module.exports = (client) => {
                     return db.close()
                 })
             })
-            return promise.then(value => { return value })
+            const value = await promise;
+            return value;
         }
     }
     client.database.set("settings", functions)

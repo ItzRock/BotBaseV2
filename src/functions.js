@@ -1,5 +1,21 @@
 module.exports = (client) => {
     client.file = (str) => { return new Buffer.from(str); }
+    client.getLevel = (message) => {
+        let level = 0;
+        const permOrder = client.config.permissions
+            .slice(0)
+            .sort((p, c) => (p.level < c.level ? 1 : -1));
+    
+        while (permOrder.length) {
+            const currentLevel = permOrder.shift();
+            if (message.guild && currentLevel.guildOnly) continue;
+            if (currentLevel.check(message, client)) {
+            level = currentLevel.level;
+            break;
+            }
+        }
+        return level
+    }
     client.load = (type, path) => {
         try {
             switch (type.toLowerCase()) {
