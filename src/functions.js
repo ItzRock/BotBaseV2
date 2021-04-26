@@ -1,5 +1,26 @@
 module.exports = (client) => {
     client.file = (str) => { return new Buffer.from(str); }
+    client.invalidArguments = (cmdName) => {
+        const cmd = client.fetchCommand(cmdName)
+        return `${client.config.emojis["x"]} Invalid Arguments: \`${cmd.usage}\``
+    }
+    client.fetchCommand = (query) =>{
+        return client.cmds.get(query) || client.cmds.get(client.cmdsAliases.get(query));        
+    }
+
+    client.clean = async (client, text) => {
+        if (text && text.constructor.name == "Promise") text = await text;
+        if (typeof text !== "string")
+          text = require("util").inspect(text, { depth: 1 });
+    
+        text = text
+          .replace(/`/g, "`" + String.fromCharCode(8203))
+          .replace(/@/g, "@" + String.fromCharCode(8203))
+          .replace(client.token, "null");
+    
+        return text;
+    };
+
     client.getLevel = (message) => {
         let level = 0;
         const permOrder = client.config.permissions

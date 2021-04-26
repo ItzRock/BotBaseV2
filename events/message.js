@@ -37,7 +37,15 @@ module.exports = async (client, message) => {
 
     const userLevel = client.config.permissions.find(l => l.level === level).name
     const cmdLevel = client.config.permissions.find(l => l.level === cmd.permissionLevel).name
-    if(level < cmd.permissionLevel) return message.channel.send(`${message["-"]} Invalid Permissions:\nYour Level ${level} : ${userLevel},\nRequired Level ${cmd.level} : ${cmdLevel}`)
+    if(level < cmd.permissionLevel) return message.channel.send(`${message["-"]} Invalid Permissions:\nYour Level \`${level}\` : \`${userLevel}\`,\nRequired Level \`${cmd.permissionLevel}\` : \`${cmdLevel}\``)
+
+    const missingPermissions = []
+    cmd.requiredPermissions.forEach(permission => {
+      if(!message.guild.me.hasPermission(permission)) missingPermissions.push(permission)
+    })
+
+    if(missingPermissions.length !== 0) return message.channel.send(`${message["-"]} Invalid Bot Permissions. Missing perms for this command: \`\`\`\n${missingPermissions.join(" ")}\n\`\`\``)
+    if(arguments.length < cmd.requiredArguments) return message.channel.send(client.invalidArguments(cmd.name))
 
     let msg
     if(await message.channel.type == "dm"){
@@ -47,7 +55,7 @@ module.exports = async (client, message) => {
     client.cmd(msg);
 
     try {
-        cmd.invoke(client, message, arguments, [], level, require("discord.js"))
+        cmd.invoke(client, message, arguments, message.member.permissions.toArray(), level, require("discord.js"))
     } catch (error) {
         
     }
