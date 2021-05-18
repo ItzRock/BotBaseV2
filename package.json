@@ -10,8 +10,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "chalk": "^4.1.1",
-    "discord.js": "^12.5.3",
+    "discord.js": "github:discordjs/discord.js",
     "moment": "^2.29.1",
-    "mongodb": "^3.6.6"
+    "mongodb": "^3.6.7"
   }
 }

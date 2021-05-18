@@ -5,10 +5,11 @@ module.exports = async (client) => {
     client.database = new Map();
 
     const modules = await readdir('./modules/Database/modules')
+    const dbType = client.config.Database.type
     modules.forEach(moduleName => {
         try {
             client.log(`Loading ${moduleName}`)
-            require(`./modules/${moduleName}`)(client)
+            require(`./${dbType}/${moduleName}`)(client)
         } catch (error) {
             console.log(`An Error has occured. ${error.name} : ${error.message}`) 
         }

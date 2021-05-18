@@ -23,6 +23,14 @@ const configuration = (client) => {
         ],
 
         Database: {
+            /* 
+                Types of DBs
+
+                1. mongo (MongoDB, cannot connect to foreign networks) -- Requires https://www.mongodb.com/
+                2. sqlite (SQlite3, stored locally. requires 3rd party program to view.) 
+                3. json (JSON, stored locally. recommened if you have never messed with a db)
+            */
+            type: "mongo", 
             url: "mongodb://localhost:27017",
             DB: "BotBase",
             password: keys.dbAccess,

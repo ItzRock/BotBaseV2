@@ -7,7 +7,21 @@ module.exports = (client) => {
     client.fetchCommand = (query) =>{
         return client.cmds.get(query) || client.cmds.get(client.cmdsAliases.get(query));        
     }
+    client.reloadSlashCommands = async (cmdName) =>{
+        if(cmdName){
+            const cmd = clinet.fetchCommand(cmdName)
+            if(cmd == undefined) return
+            const arguments = []
+            const cmdData = {
+                name: cmd.name,
+                description: cmd.desciption,
+                options: arguments,
+            };
+              client.application.commands.create(cmdData);
+        }else{
 
+        }
+    }
     client.clean = async (client, text) => {
         if (text && text.constructor.name == "Promise") text = await text;
         if (typeof text !== "string")

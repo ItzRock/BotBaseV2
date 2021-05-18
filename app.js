@@ -7,8 +7,8 @@
     HarryXChen3 https://github.com/HarryXChen3
 */
 
-const Discord = require("discord.js");
-const client = new Discord.Client();
+const { Client, Intents } = require("discord.js");
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 client.cmds = new Map();
 client.cmdsAliases = new Map();
