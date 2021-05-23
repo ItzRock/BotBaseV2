@@ -37,7 +37,7 @@ module.exports = (client) => {
         category: category,
         aliases: [],
         desciption: "Raw Javascript",
-        usage: `${filename} <Raw JS>`
+        usage: `${filename} <Javascript>`
     }
     const config = {
         permissionLevel: 10,

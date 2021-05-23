@@ -12,7 +12,7 @@ module.exports = (client) => {
         category: category,
         aliases: [],
         desciption: undefined,
-        usage: `${filename} <required> [optional]`
+        usage: `${filename}`
     }
     const config = {
         permissionLevel: 0,

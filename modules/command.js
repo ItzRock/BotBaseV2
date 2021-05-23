@@ -4,7 +4,7 @@ class command {
 
         this.name = details.name
         this.aliases = details.aliases || []
-        this.desciption = details.desciption || `This is a standard command with no desciption.`
+        this.description = details.description || `This is a standard command with no desciption.`
         this.usage = details.usage || `${details.name}`
         this.category = details.category
 

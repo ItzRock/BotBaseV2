@@ -1,5 +1,5 @@
 /*
-    ItzRock (299682971374452739) 
+    ItzRock (299682971374452739)
     @ItzRock_ (twitter)
     Support Server : https://discord.gg/QwgnZ83XD3
 
@@ -8,7 +8,7 @@
 */
 
 const { Client, Intents } = require("discord.js");
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: Intents.ALL });
 
 client.cmds = new Map();
 client.cmdsAliases = new Map();

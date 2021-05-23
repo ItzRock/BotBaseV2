@@ -8,18 +8,58 @@ module.exports = (client) => {
         return client.cmds.get(query) || client.cmds.get(client.cmdsAliases.get(query));        
     }
     client.reloadSlashCommands = async (cmdName) =>{
-        if(cmdName){
-            const cmd = clinet.fetchCommand(cmdName)
+        async function run(cmd){
             if(cmd == undefined) return
+            const cmdElement = client.application.commands.cache.find(command => command.name === cmd.name);
+            if(cmdElement) {
+                await client.application.commands.delete(cmdElement.id)
+                client.guilds.cache.forEach(async guild => {
+                    guild.commands.cache.forEach(async slashCommand => {
+                        await slashCommand.remove()
+                    })
+                })
+            }
+            let args = cmd.usage.replace(`${cmd.name}`, "").split(" ")
             const arguments = []
+            args.forEach(argument => {
+                const types = [
+                    "STRING",
+                    "INTEGER",
+                    "BOOLEAN",
+                    "USER",
+                    "CHANNEL",
+                    "ROLE",
+                    "MENTIONABLE"
+                ]
+                const data = {
+                    type: "STRING",
+
+                }
+                argument = argument.split("")
+                if(argument[0] == "<"){ data.required = true }else data.required = false
+                argument.pop(); argument.shift();
+                argument = argument.join("")
+                data.name = argument.toLowerCase()
+                data.description = argument.toLowerCase()
+                /*if(types.includes(argument.toUpperCase()))
+                data.type = argument.toUpperCase()*/
+                arguments.push(data)
+            })
+            arguments.shift()
             const cmdData = {
-                name: cmd.name,
-                description: cmd.desciption,
+                name: cmd.name.toLowerCase(),
+                description: cmd.description,
                 options: arguments,
             };
-              client.application.commands.create(cmdData);
+            client.application.commands.create(cmdData);
+        }
+        if(cmdName){
+            const cmd = clinet.fetchCommand(cmdName)
+            run(cmd)
         }else{
-
+            client.cmds.forEach(cmd => {
+                run(cmd)
+            })
         }
     }
     client.clean = async (client, text) => {

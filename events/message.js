@@ -23,29 +23,29 @@ module.exports = async (client, message) => {
     })
 
     if(cmd.enabled = false) return;
-    if (cmd && !message.guild && cmd.guildOnly) return message.channel.send(`${message["-"]} This command is unavailable in DMs. Please run in a Server.`);
+    if (cmd && !message.guild && cmd.guildOnly == true) return message.reply(`${message["-"]} This command is unavailable in DMs. Please run in a Server.`);
 
     if(settings.disabledCMDS.value.includes(cmd.name)){
         if(operator){
-          message.channel.send(`${message.check} This command is disabled but \`${message.author.tag}\` is allowed. (Case: ${client.user.username} Administrator)`)
+          message.reply(`${message.check} This command is disabled but \`${message.author.tag}\` is allowed. (Case: ${client.user.username} Administrator)`)
         }
-        else return message.channel.send(`${message["-"]} This command has been disabled in this guild! please try another guild or in DMs.`)
+        else return message.reply(`${message["-"]} This command has been disabled in this guild! please try another guild or in DMs.`)
     }
 
     const premiumStatus = settings.premium.value;
-    if(cmd.premium && !premiumStatus && !operator) return message.channel.send(`${message["-"]} This command can only be used in premium servers.`)
+    if(cmd.premium && !premiumStatus && !operator) return message.reply(`${message["-"]} This command can only be used in premium servers.`)
 
     const userLevel = client.config.permissions.find(l => l.level === level).name
     const cmdLevel = client.config.permissions.find(l => l.level === cmd.permissionLevel).name
-    if(level < cmd.permissionLevel) return message.channel.send(`${message["-"]} Invalid Permissions:\nYour Level \`${level}\` : \`${userLevel}\`,\nRequired Level \`${cmd.permissionLevel}\` : \`${cmdLevel}\``)
+    if(level < cmd.permissionLevel) return message.reply(`${message["-"]} Invalid Permissions:\nYour Level \`${level}\` : \`${userLevel}\`,\nRequired Level \`${cmd.permissionLevel}\` : \`${cmdLevel}\``)
 
     const missingPermissions = []
     cmd.requiredPermissions.forEach(permission => {
       if(!message.guild.me.hasPermission(permission)) missingPermissions.push(permission)
     })
 
-    if(missingPermissions.length !== 0) return message.channel.send(`${message["-"]} Invalid Bot Permissions. Missing perms for this command: \`\`\`\n${missingPermissions.join(" ")}\n\`\`\``)
-    if(arguments.length < cmd.requiredArguments) return message.channel.send(client.invalidArguments(cmd.name))
+    if(missingPermissions.length !== 0) return message.reply(`${message["-"]} Invalid Bot Permissions. Missing perms for this command: \`\`\`\n${missingPermissions.join(" ")}\n\`\`\``)
+    if(arguments.length < cmd.requiredArguments) return message.reply(client.invalidArguments(cmd.name))
 
     let msg
     if(await message.channel.type == "dm"){
