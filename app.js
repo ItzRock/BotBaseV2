@@ -8,7 +8,12 @@
 */
 
 const { Client, Intents } = require("discord.js");
-const client = new Client({ intents: Intents.ALL });
+const client = new Client({ 
+    intents: Intents.ALL, // All Intents will be allowed
+    allowedMentions: { 
+        parse: ["everyone", "roles"] // Incase the bot has vulnerability which allows it to send unparsed user data, this will result in the bot not pinging a mass number of users. Remove any if needed.
+    } 
+});
 
 client.cmds = new Map();
 client.cmdsAliases = new Map();

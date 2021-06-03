@@ -19,7 +19,8 @@ const configuration = (client) => {
         },
 
         Operators: [
-            "299682971374452739" // Discord user ID
+            "299682971374452739", // Discord user ID
+            "412729903893708801" //Stinky
         ],
 
         Database: {

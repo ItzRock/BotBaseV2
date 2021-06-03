@@ -37,13 +37,13 @@ module.exports = (client) => {
         category: category,
         aliases: [],
         desciption: "Raw Javascript",
-        usage: `${filename} <Javascript>`
+        usage: `${filename} [Javascript]`
     }
     const config = {
         permissionLevel: 10,
         requiredPermissions: [],
         guildOnly: false,
-        requiredArguments: 1,
+        requiredArguments: 0,
         premium: false,
         disableable: true,
         enabled: true
