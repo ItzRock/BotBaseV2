@@ -6,8 +6,9 @@ const invoke = async (client, message, arguments, userPermissions, userLevel, Di
         const evaled = eval(code);
         const clean = await client.clean(client, evaled);
 
-        message.channel.send(`​${message.eval}\`​Success!\`​`, 
+        message.channel.send(
             {
+                content: `​${message.eval}\`​Success!\`​`, 
                 files: [
                     {
                         name: `eval.js`,
@@ -18,8 +19,9 @@ const invoke = async (client, message, arguments, userPermissions, userLevel, Di
         )
     } catch (error) {
         const cleaned = await client.clean(client, `${error.name}:${error.message}`)
-        message.channel.send(`${message.x}\`ERROR\``,
+        message.channel.send(
             {
+                content: `${message.x}\`ERROR\``,
                 files: [
                     {
                         name: `error.js`,

@@ -19,6 +19,8 @@ client.cmds = new Map();
 client.cmdsAliases = new Map();
 client.modules = new Map();
 
+client.interactionCMDS = new Map()
+
 client.functions = require("./src/functions.js")(client);
 client.modulesLoader = require('./src/module-handler')(client);
 

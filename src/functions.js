@@ -91,6 +91,13 @@ module.exports = (client) => {
         }
         return level
     }
+    client.findUser = (message, query) => {
+        let user = message.mentions.members.first();
+        if(user) return user
+        query = query.toLowerCase()
+        const users = []
+
+    }
     client.load = (type, path) => {
         try {
             switch (type.toLowerCase()) {

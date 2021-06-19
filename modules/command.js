@@ -15,6 +15,8 @@ class command {
         this.premium = config.premium || false
         this.disableable = config.disableable || true
         this.enabled = config.enabled || true
+
+        this.getName = () => { require('path').basename(__filename).split(".")[0] }
     }
 }
 module.exports = (client) => { client.command = command; }
