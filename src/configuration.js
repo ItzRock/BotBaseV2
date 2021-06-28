@@ -6,9 +6,9 @@ const configuration = (client) => {
         permissions: require("./permissions"),
 
         debug: { // Put Channel IDs here, or put undefined or false to have it not send.
-            console: "",
-            logs: "",
-            error: ""
+            console: "819036071777140746",
+            logs: "767976193483079690",
+            error: "803503101109338152"
         },
         emojis: { // <:EMOJI-NAME:EMOJI-ID>
             check: "<:checkmark:833771519813484614>",
@@ -29,9 +29,9 @@ const configuration = (client) => {
 
                 1. mongo (MongoDB, cannot connect to foreign networks) -- Requires https://www.mongodb.com/
                 2. sqlite (SQlite3, stored locally. requires 3rd party program to view.) 
-                3. json (JSON, stored locally. recommened if you have never messed with a db)
+                3. json (JSON, stored locally. recommended if you dont want to mess with a db)
             */
-            type: "mongo", 
+            type: "mongo", // Currently mongodb is the only working one
             url: "mongodb://localhost:27017",
             DB: "BotBase",
             password: keys.dbAccess,

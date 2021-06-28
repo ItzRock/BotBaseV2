@@ -8,7 +8,7 @@ const invoke = async (client, message, arguments, userPermissions, userLevel, Di
 
         message.channel.send(
             {
-                content: `​${message.eval}\`​Success!\`​`, 
+                content: `​${message.check}\`​Success!\`​`, 
                 files: [
                     {
                         name: `eval.js`,

@@ -14,7 +14,6 @@ const client = new Client({
         parse: ["everyone", "roles"] // Incase the bot has vulnerability which allows it to send unparsed user data, this will result in the bot not pinging a mass number of users. Remove any if needed.
     } 
 });
-
 client.cmds = new Map();
 client.cmdsAliases = new Map();
 client.modules = new Map();

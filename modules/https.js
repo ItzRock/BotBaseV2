@@ -21,7 +21,7 @@ module.exports = (client) => {
             })
         },
         post: (data, options) => {
-            const data = new Promise((resolve, reject) => {
+            const promise = new Promise((resolve, reject) => {
                 const req = https.request(options, res => {
                     res.on('data', d => {
                         const output = JSON.parse(d);
@@ -34,7 +34,7 @@ module.exports = (client) => {
                 req.write(data)
                 req.end()
             })
-            return data.then(output => {
+            return promise.then(output => {
                 return output;
             })
         }
