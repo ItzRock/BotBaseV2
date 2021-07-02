@@ -45,7 +45,7 @@ const permissions = [
     {
         level: 10,
         name: `Bot Administrator`,
-        check: (message, client) => client.config.Operators.includes(message.author.id)
+        check: (message, client) => client.isBotAdmin(message.author.id)
     },
     
     
