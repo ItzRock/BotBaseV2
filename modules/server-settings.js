@@ -13,6 +13,12 @@ module.exports = async (client) => {
         ],
     };
     const filterGuildData = async (guildData) => {
+        /*
+            Documentation (provided by anthony)
+
+            ßħœŧĸĳ¶Ĳ®¥Ĳ®¥ŊĦÐŊŁŒ®Œ¥€⅜Ŧ¥↑ĲĿ
+        */
+        
         for (let [defaultSettingKey, defaultSettingValue] of Object.entries(defaults)) {
             if (!defaultSettingKey || !defaultSettingValue) continue;
             else if(!defaultSettingValue.name || !defaultSettingValue.value) continue;
