@@ -12,7 +12,7 @@ module.exports = (client) => {
                         if (err) reject(err)
                         resolve(result);
                         return db.close()
-                    })
+                    });
                 });
             })
             const value = await promise;
@@ -52,7 +52,7 @@ module.exports = (client) => {
                     const database = db.db(dbID);
                     database.collection(collection).updateOne(oldQuery, newValues, function(err, obj) {
                         if (err) reject(err)
-                        resolve('Successfully Removed')
+                        resolve('Successfully Updated')
                         return db.close()
                     });
                 });
@@ -68,7 +68,7 @@ module.exports = (client) => {
                         if (err) reject(err)
                         resolve(result.length);
                         return db.close()
-                    })
+                    });
                 });
             })
             const value = await promise;
