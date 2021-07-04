@@ -19,30 +19,33 @@ module.exports = async (client) => {
             ßħœŧĸĳ¶Ĳ®¥Ĳ®¥ŊĦÐŊŁŒ®Œ¥€⅜Ŧ¥↑ĲĿ
         */
         
+        if (!guildData) return guildData;
+        else if (!guildData.Settings) guildData.Settings = {};
+
         for (let [defaultSettingKey, defaultSettingValue] of Object.entries(defaults)) {
             if (!defaultSettingKey || !defaultSettingValue) continue;
             else if(!defaultSettingValue.name || !defaultSettingValue.value) continue;
             else if(defaultSettingKey !== (defaultSettingValue.name).toString()) continue;
 
             const defaultSettingName = (defaultSettingValue.name).toString();
-            if (!guildData[defaultSettingName]) {
-                guildData[defaultSettingName] = defaultSettingValue;
+            if (!guildData.Settings[defaultSettingName]) {
+                guildData.Settings[defaultSettingName] = defaultSettingValue;
             } else {
-                for (let [settingPropertyKey, settingPropertyValue] of Object.entries(guildData[defaultSettingName])) {                   
+                for (let [settingPropertyKey, settingPropertyValue] of Object.entries(guildData.Settings[defaultSettingName])) {                   
                     const defaultSettingPropertyValue = defaultSettingValue[settingPropertyKey]
 
                     if (settingPropertyConfiguration.overrideBlacklist.includes(settingPropertyKey.toString())) continue;
 
                     if (!settingPropertyKey) continue;
                     else if (!settingPropertyValue || settingPropertyValue !== defaultSettingPropertyValue) {
-                        guildData[defaultSettingName][settingPropertyKey] = defaultSettingPropertyValue
+                        guildData.Settings[defaultSettingName][settingPropertyKey] = defaultSettingPropertyValue
                     }
                 };
             };
         };
 
         let pendingSettingDeletion = [];
-        for (let [guildSettingKey, guildSettingValue] of Object.entries(guildData)) {
+        for (let [guildSettingKey, guildSettingValue] of Object.entries(guildData.Settings)) {
             if (!guildSettingKey || !guildSettingValue) continue;
             else if(!guildSettingValue.name || !guildSettingValue.value) continue;
             else if(guildSettingKey !== (guildSettingValue.name).toString()) continue;
@@ -52,7 +55,7 @@ module.exports = async (client) => {
         };
 
         pendingSettingDeletion.forEach(keyNameString => {
-            delete guildData[keyNameString]
+            delete guildData.Settings[keyNameString]
         })
 
         return guildData
@@ -60,13 +63,13 @@ module.exports = async (client) => {
     client.settings = {
         read: async (guild) => {
             const data = await client.database.read({GuildID: guild}, collections.ServerSettings)
-            const newData = filterGuildData(data[0])
-            if(data.length == 0) {
+            if (!data || data.length == 0) {
                 const creationData = await client.settings.create(guild)
                 return creationData
             } else {
+                const newData = await filterGuildData(data[0])
                 if (data[0] !== newData) {
-                    const dataUpdateResult = await client.data.update({GuildID: guild}, {Settings: newData.Settings}, collections.ServerSettings)
+                    const dataUpdateResult = await client.database.update({GuildID: guild}, {$set: {Settings: newData.Settings}}, collections.ServerSettings)
                 };
                 
                 return newData

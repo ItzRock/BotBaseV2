@@ -20,10 +20,10 @@ client.modules = new Map();
 
 client.interactionCMDS = new Map()
 
-client.functions = require("./src/functions.js")(client);
-client.modulesLoader = require('./src/module-handler')(client);
+client.functions = require("./handlers/functions.js")(client);
+client.modulesLoader = require('./handlers/module-handler')(client);
 
-client.configuration = require("./src/configuration")(client);
+client.configuration = require("./handlers/configuration")(client);
 client.config = client.configuration;
 
 const { promisify } = require("util");
