@@ -1,7 +1,7 @@
 module.exports = async (client, message) => {
   if (message.author.bot) return;
 
-  const settings = message.channel == null ? client.config.defaults : (await client.settings.read(message.guild.id)).Settings;
+  const settings = message.channel == null ? client.config.defaults : (await client.settings.fetch(message.guild.id)).Settings;
   message.settings = settings
   const mention = new RegExp(`^<@!?${client.user.id}>( |)$`);
   if (message.content.match(mention)) return message.reply(`:wave: my prefix is \`${settings.prefix.value}\``)

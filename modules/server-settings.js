@@ -12,6 +12,24 @@ module.exports = async (client) => {
             "value",
         ],
     };
+
+    const filterGuildSetting = async (settingData) => {
+        if (!settingData) return settingData;
+
+        for (let [settingPropertyKey, settingPropertyValue] of Object.entries(settingData)) {                   
+            const defaultSettingPropertyValue = defaultSettingValue[settingPropertyKey]
+
+            if (settingPropertyConfiguration.overrideBlacklist.includes(settingPropertyKey.toString())) continue;
+
+            if (!settingPropertyKey) continue;
+            else if (!settingPropertyValue || settingPropertyValue !== defaultSettingPropertyValue) {
+                settingData[settingPropertyKey] = defaultSettingPropertyValue
+            }
+        };
+
+        return settingData;
+    };
+
     const filterGuildData = async (guildData) => {
         /*
             Documentation (provided by anthony)
@@ -31,16 +49,8 @@ module.exports = async (client) => {
             if (!guildData.Settings[defaultSettingName]) {
                 guildData.Settings[defaultSettingName] = defaultSettingValue;
             } else {
-                for (let [settingPropertyKey, settingPropertyValue] of Object.entries(guildData.Settings[defaultSettingName])) {                   
-                    const defaultSettingPropertyValue = defaultSettingValue[settingPropertyKey]
-
-                    if (settingPropertyConfiguration.overrideBlacklist.includes(settingPropertyKey.toString())) continue;
-
-                    if (!settingPropertyKey) continue;
-                    else if (!settingPropertyValue || settingPropertyValue !== defaultSettingPropertyValue) {
-                        guildData.Settings[defaultSettingName][settingPropertyKey] = defaultSettingPropertyValue
-                    }
-                };
+                const guildSetting = guildData.Settings[defaultSettingName]
+                guildData.Settings[defaultSettingName] = await filterGuildSetting(guildSetting)
             };
         };
 
@@ -61,9 +71,13 @@ module.exports = async (client) => {
         return guildData
     }
     client.settings = {
-        read: async (guild) => {
+        create: async (guild) => {
+            const data = await client.database.write({GuildID: guild, Settings: defaults}, collections.ServerSettings)
+            return data
+        },
+        fetch: async (guild) => {
             const data = await client.database.read({GuildID: guild}, collections.ServerSettings)
-            if (!data || data.length == 0) {
+            if (!data || data.length <= 0) {
                 const creationData = await client.settings.create(guild)
                 return creationData
             } else {
@@ -75,9 +89,26 @@ module.exports = async (client) => {
                 return newData
             }
         },
-        create: async (guild) => {
-            const data = await client.database.write({GuildID: guild, Settings: defaults}, collections.ServerSettings)
-            return data
+        update: async (guild, settingKey, settingValue) => {
+            return "Not finished";
+            /*
+            const data = await client.database.read({GuildID: guild}, collections.ServerSettings)
+            if (!data || data.length <= 0) {
+                throw new Error("Failed setting update (Guild does not have valid settings :: Guild: " + guild.toString());
+            } else {
+                const settingData = data[0].Settings[settingKey]
+                if (!settingData || settingData === null) {
+                    throw new Error("Failed setting update (Got undefined or null return for key: " + settingKey.toString());
+                }
+                
+                const newSettingData = filterGuildSetting(settingData)
+                if (settingData !== newSettingData) {
+
+                }
+
+                if (newSettingData.valueType && typeof(settingValue) !== newSettingData.valueType)                
+            }
+            */
         }
     }
 
