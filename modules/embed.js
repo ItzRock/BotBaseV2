@@ -11,7 +11,7 @@ module.exports = (client) => {
       "#ff8133",
     ]
     if (safe) array.shift()
-    return array.random()
+    return array[Math.floor(Math.random()*array.length)];
   };
   client.errorEmbed = (error) => {
     const avatarURL = client.user.avatarURL()
@@ -25,21 +25,15 @@ module.exports = (client) => {
       .setDescription(`\`${error.name === "" ? error.name : error.name + ': '}${error.message}\`\nIf this continues to happen please join our support server by running \`;server\``)
     return embed
   }
-  client.embed = function (
-    title,
-    description,
-    color = client.embedColour(),
-    authorExtText = ""
-  ) {
+  client.embed = function (title) {
     const clientUser = client.user.username;
     const avatar = client.user.avatarURL();
     const embed = new MessageEmbed()
-      .setAuthor(`${clientUser} ${authorExtText}`, avatar)
+      .setAuthor(`${clientUser}`, avatar)
       .setFooter(`${clientUser}`, avatar)
       .setTitle(title)
-      .setColor(color)
+      .setColor(client.embedColour())
       .setTimestamp()
-      .setDescription(description);
     return embed;
   }
 }

@@ -73,6 +73,29 @@ module.exports = (client) => {
         } catch (error) { throw new Error(`Unable to load ${path} :: ${error.name}:${error.message}`) }
         
     }
+    client.unload = (type, path) => {
+        try {
+            switch (type.toLowerCase()) {
+                case "cmd": {
+                    let command = client.fetchCommand(path)
+                    if (command == undefined) return `The command \`${path}\` doesn"t seem to exist, nor is it an alias. Try again!`;
+
+                    const mod = require.cache[require.resolve(`../commands/${command.category}/${command.name}`)];
+                    delete require.cache[require.resolve(`../commands/${command.category}/${command.name}.js`)];
+                    for (let i = 0; i < mod.parent.children.length; i++) {
+                        if (mod.parent.children[i] === mod) {
+                            mod.parent.children.splice(i, 1);
+                            break;
+                        }
+                    }
+                    return false
+                }
+                default: throw new Error(`${type} is not a valid loadable item.`);
+            }
+            
+        } catch (error) { throw new Error(`Unable to load ${path} :: ${error.name}:${error.message}`) }
+        
+    }
     
     return this
 }
