@@ -34,11 +34,11 @@ NOT FINISHED!!
    npm install
    ```
 ## About the Repository
-- <a href="https://github.com/ItzRock/BotBaseV2/tree/main/commands">commands</a> (Directory) Does what you would expect a commands folder to do; Stores all the command files/functions
-- <a href="https://github.com/ItzRock/BotBaseV2/tree/main/events">events</a> (Directory) Stores the discord.js event handlers to be used on that specific event (The name of the file)
-- <a href="https://github.com/ItzRock/BotBaseV2/tree/main/reference">reference</a> (Directory) Stores references for some of the features.
-- <a href="https://github.com/ItzRock/BotBaseV2/tree/main/handlers">handlers</a> (Directory) Includes the loaders, functions, configuration, etc.
-- <a href="https://github.com/ItzRock/BotBaseV2/blob/main/app.js">app.js</a> Main application
+- <a href="https://github.com/ItzRock/BotBaseV2/tree/master/commands">commands</a> (Directory) Does what you would expect a commands folder to do; Stores all the command files/functions
+- <a href="https://github.com/ItzRock/BotBaseV2/tree/master/events">events</a> (Directory) Stores the discord.js event handlers to be used on that specific event (The name of the file)
+- <a href="https://github.com/ItzRock/BotBaseV2/tree/master/reference">reference</a> (Directory) Stores references for some of the features.
+- <a href="https://github.com/ItzRock/BotBaseV2/tree/master/handlers">handlers</a> (Directory) Includes the loaders, functions, configuration, etc.
+- <a href="https://github.com/ItzRock/BotBaseV2/blob/master/app.js">app.js</a> Main application
 
 <!-- LICENSE -->
 ## License
