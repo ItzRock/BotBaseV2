@@ -50,9 +50,4 @@ coming soon to a git repository near you!
 
 <!-- CONTACT -->
 ## Contact
-
-Twitter - [@itzrock_](https://twitter.com/itzrock_)
-
-Project Link: [https://github.com/ItzRock/BotBaseV2](https://github.com/ItzRock/BotBaseV2)
-
 Discord server (Public): [Hue](https://discord.com/invite/QwgnZ83XD3)
