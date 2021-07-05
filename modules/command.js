@@ -16,7 +16,8 @@ class command {
         this.disableable = config.disableable || true
         this.enabled = config.enabled || true
 
-        this.getName = () => { require('path').basename(__filename).split(".")[0] }
+        this.getName = (filename) => require('path').basename(filename || __filename).split(".")[0]
     }
+    getName = (filename) => require('path').basename(filename || __filename).split(".")[0]
 }
-module.exports = (client) => { client.command = command; }
+module.exports = (client) => client.command = command;

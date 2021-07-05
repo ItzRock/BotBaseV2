@@ -1,7 +1,6 @@
 const filename = require('path').basename(__filename).split(".")[0]
 const category = __dirname.split("\\")[__dirname.split("\\").length - 1].split("/")[__dirname.split("/").length - 1]
 /**
- * 
  * @param {import("discord.js").Client} client 
  * @param {import("discord.js").Message} message 
  * @param {import("discord.js")} Discord 
@@ -27,6 +26,6 @@ module.exports = (client) => {
         disableable: true,
         enabled: true
     }
-    const command  = new client.command(invoke, details, config)
+    const command = new client.command(invoke, details, config)
     return command
 }
