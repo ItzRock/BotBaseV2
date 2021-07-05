@@ -14,12 +14,13 @@ module.exports = async (client) => {
     };
 
     const filterGuildSetting = async (settingData) => {
-        if (!settingData) return settingData;
+        if (!settingData || !settingData.name) return settingData;
 
         for (let [settingPropertyKey, settingPropertyValue] of Object.entries(settingData)) {                   
-            const defaultSettingPropertyValue = defaultSettingValue[settingPropertyKey]
+            const defaultSettingPropertyValue = defaults[settingData.name][settingPropertyKey]
 
-            if (settingPropertyConfiguration.overrideBlacklist.includes(settingPropertyKey.toString())) continue;
+            if (!defaultSettingPropertyValue || defaultSettingPropertyValue === null) continue;
+            else if (settingPropertyConfiguration.overrideBlacklist.includes(settingPropertyKey.toString())) continue;
 
             if (!settingPropertyKey) continue;
             else if (!settingPropertyValue || settingPropertyValue !== defaultSettingPropertyValue) {
@@ -35,6 +36,8 @@ module.exports = async (client) => {
             Documentation (provided by anthony)
 
             ßħœŧĸĳ¶Ĳ®¥Ĳ®¥ŊĦÐŊŁŒ®Œ¥€⅜Ŧ¥↑ĲĿ
+
+            Harry for the love of god please test your code.
         */
         
         if (!guildData) return guildData;

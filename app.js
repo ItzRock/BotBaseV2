@@ -1,11 +1,12 @@
 /*
-    ItzRock (299682971374452739)
-    @ItzRock_ (twitter)
+    ItzRock Bot Base v2.0
     Support Server : https://discord.gg/QwgnZ83XD3
-
-    Contributors:
-    HarryXChen3 https://github.com/HarryXChen3
+    
+    Developers:
+    Anthony (@ItzRock) https://github.com/ItzRock
+    Harry (@HarryXChen3) https://github.com/HarryXChen3
 */
+
 
 const { Client, Intents } = require("discord.js");
 const client = new Client({ 
@@ -17,8 +18,6 @@ const client = new Client({
 client.cmds = new Map();
 client.cmdsAliases = new Map();
 client.modules = new Map();
-
-client.interactionCMDS = new Map()
 
 client.functions = require("./handlers/functions.js")(client);
 client.modulesLoader = require('./handlers/module-handler')(client);
