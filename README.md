@@ -1,5 +1,6 @@
 ## Discord.js Bot Base
 
+## Warning: this bot base is unfinished and still receiving important updates.
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
