@@ -32,14 +32,6 @@ module.exports = async (client) => {
     };
 
     const filterGuildData = async (guildData) => {
-        /*
-            Documentation (provided by anthony)
-
-            ßħœŧĸĳ¶Ĳ®¥Ĳ®¥ŊĦÐŊŁŒ®Œ¥€⅜Ŧ¥↑ĲĿ
-
-            Harry for the love of god please test your code.
-        */
-        
         if (!guildData) return guildData;
         else if (!guildData.Settings) guildData.Settings = {};
 
