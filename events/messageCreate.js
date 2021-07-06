@@ -1,10 +1,9 @@
 module.exports = async (client, message) => {
   if (message.author.bot) return;
 
-  const settings = message.channel == null ? client.config.defaults : (await client.settings.fetch(message.guild.id)).Settings;
+  const settings = message.channel.type == "dm" ? client.config.defaults : (await client.settings.fetch(message.guild.id)).Settings;
   message.settings = settings
-  const mention = new RegExp(`^<@!?${client.user.id}>( |)$`);
-  if (message.content.match(mention)) return message.reply(`:wave: my prefix is \`${settings.prefix.value}\``)
+  if (message.content.includes(client.user.toString())) return message.reply(`:wave: my prefix is \`${settings.prefix.value}\``)
   if (message.content.indexOf(settings.prefix.value) !== 0) return;
 
   const arguments = message.content.slice(settings.prefix.value.length).trim().split(/ +/g);
@@ -23,7 +22,7 @@ module.exports = async (client, message) => {
   })
 
   if (cmd.enabled = false) return;
-  if (cmd && !message.guild && cmd.guildOnly == true) return message.reply(`${message["-"]} This command is unavailable in DMs. Please run in a Server.`);
+  if (message.channel.type == "dm" && cmd.guildOnly === true) return message.reply(`${message["-"]} This command is unavailable in DMs. Please run in a Server.`);
 
   if (settings.disabledCMDS.value.includes(cmd.name)) {
     if (operator) {

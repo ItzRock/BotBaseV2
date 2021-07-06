@@ -2,12 +2,12 @@ const permissions = [
     {
         level: -1,
         name: "Bot Banned",
-        check: () => false
+        check: () => true
     },
     {
         level: 0,
         name: "User",
-        check: () => true
+        check: (message, client) => client.isNotBotBanned(message.author.id)
     },
     {
         level: 3,
@@ -40,7 +40,7 @@ const permissions = [
     {
         level: 8,
         name: "Server Owner",
-        check: (message) => message.channel.type === "text" ? (message.guild.ownerID === message.author.id ? true : false) : false
+        check: (message) => message.guild !== undefined ? (message.guild.ownerID === message.author.id ? true : false) : false
     },
     {
         level: 10,

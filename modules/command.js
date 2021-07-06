@@ -10,7 +10,7 @@ class command {
 
         this.permissionLevel = config.permissionLevel || 0
         this.requiredPermissions = config.requiredPermissions
-        this.guildOnly = config.guildOnly || true
+        this.guildOnly = config.guildOnly
         this.requiredArguments = config.requiredArguments || 0
         this.premium = config.premium || false
         this.disableable = config.disableable || true

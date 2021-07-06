@@ -22,7 +22,9 @@ const configuration = (client) => {
             "299682971374452739", // Discord user ID
             "412729903893708801" //Stinky
         ],
+        BotBanned: [ // you can also set this up to a db
 
+        ],
         Database: {
             /* 
                 Types of DBs

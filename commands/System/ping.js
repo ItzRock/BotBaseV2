@@ -26,7 +26,6 @@ const invoke = async (client, message, arguments, userPermissions, userLevel, Di
         })
     }
     await update();
-    client.log(JSON.stringify(embed))
     const msg = await message.channel.send({ embeds: [embed] });
     const ms = msg.createdTimestamp - message.createdTimestamp;
     connections[0].message = `\`${ms}\` ms`;

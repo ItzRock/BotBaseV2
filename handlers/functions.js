@@ -7,6 +7,9 @@ module.exports = (client) => {
     client.isBotAdmin = (id) => {
         return client.config.Operators.includes(id) // Also can do role attachment here 
     }
+    client.isNotBotBanned = (id) => {
+        return client.config.BotBanned.includes(id) == false
+    }
     client.fetchCommand = (query) =>{
         return client.cmds.get(query) || client.cmds.get(client.cmdsAliases.get(query));        
     }
