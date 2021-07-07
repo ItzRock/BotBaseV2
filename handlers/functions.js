@@ -13,9 +13,6 @@ module.exports = (client) => {
     client.fetchCommand = (query) =>{
         return client.cmds.get(query) || client.cmds.get(client.cmdsAliases.get(query));        
     }
-    client.reloadSlashCommands = async (cmdName) =>{
-        return console.log("remove function reference")
-    }
     client.clean = async (client, text) => {
         if (text && text.constructor.name == "Promise") text = await text;
         if (typeof text !== "string")
