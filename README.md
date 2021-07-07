@@ -47,25 +47,7 @@ Distributed under the Apache License 2.0 License. See `LICENSE` for more informa
 
 ## API Documentation
 ### Functions: 
-As in order as written in <a href="https://github.com/ItzRock/BotBaseV2/tree/master/handlers/functions.js">handlers/functions.js</a>
-
-`client.file` - Arguments: `1` - `string`, Description: `Converts strings into buffers uploadable by discord.js`
-
-`client.isBotAdmin` - Arguments: `1` - `string (discord ID)`, Description: `Connects to permissions.js in handlers, please if you want to change this, do so. I made this function incase you want to bind bot admin to a role id or something.`
-
-`client.isNotBotBanned` - Arguments: `1` - `string (Discord ID)`, Description: `Like above, feel free to edit this, i.e tie it to a database or something if you want to add bot banned from there.`
-
-`client.fetchCommand` - Arguments: `1` - `string`, Description: `Looks in the command map for a command matching either the name or alias.`
-
-`client.clean` - Arguments: `1` - `string`, Description: `Parses sensitive data out for eval command.`
-
-`client.getLevel` - Arguments: `1` - `Message (Discord js class)`, Description: `gets the permission level of a user.`
-
-`client.findUser` - Arguments: `2` - `Message (Discord js class)`, `string (username)`, Description: `query's the server for a user matching the nickname or discord username`
-
-`client.load` - Arguments: `2` - `string (type)`, `string (path)`, Description: `Converts strings into buffers uploadable by discord.js`
-
-`client.unload` - Arguments: `2` - `string (type)`, `string (path)`, Description: `Converts strings into buffers uploadable by discord.js`
+Too many to write here, see <a href="https://github.com/ItzRock/BotBaseV2/tree/master/handlers/functions.js">handlers/functions.js</a> for more.
 
 ### Custom Events
 Discord.js's Client class extends off of node.js's event emitter so you can run `client.emit` and emit custom classes. Currently there are two
