@@ -50,7 +50,7 @@ module.exports = (client) => {
             const promise = new Promise(async (resolve, reject) => {
                 MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db){
                     const database = db.db(dbID);
-                    database.collection(collection).updateOne(oldQuery, newValues, function(err, obj) {
+                    database.collection(collection).updateOne(oldQuery, {$set: newValues}, function(err, obj) {
                         if (err) reject(err)
                         resolve('Successfully Updated')
                         return db.close()

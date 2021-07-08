@@ -78,32 +78,28 @@ module.exports = async (client) => {
             } else {
                 const newData = await filterGuildData(data[0])
                 if (data[0] !== newData) {
-                    const dataUpdateResult = await client.database.update({GuildID: guild}, {$set: {Settings: newData.Settings}}, collections.ServerSettings)
+                    const dataUpdateResult = await client.database.update({GuildID: guild}, {Settings: newData.Settings}, collections.ServerSettings)
                 };
                 
                 return newData
             }
         },
-        update: async (guild, settingKey, settingValue) => {
-            return "Not finished";
-            /*
-            const data = await client.database.read({GuildID: guild}, collections.ServerSettings)
-            if (!data || data.length <= 0) {
-                throw new Error("Failed setting update (Guild does not have valid settings :: Guild: " + guild.toString());
-            } else {
-                const settingData = data[0].Settings[settingKey]
-                if (!settingData || settingData === null) {
-                    throw new Error("Failed setting update (Got undefined or null return for key: " + settingKey.toString());
+        update: async (guild, setting, value) => {
+            const results = new Promise(async (resolve, reject) => {
+                try {
+                    let data = await client.settings.fetch(guild);
+                    data = data.Settings;
+                    if(data[setting].valueType == "array" && typeof(value) !== "object") return reject("Unsupported, Use: add and negate");
+                    if(typeof(value) == "string") value = value.toLowerCase()
+                    if(typeof(value) !== "object" && data[setting].valueType == "boolean") value = value == "true" ||  value == "on" || value == "enable"  ? true : value == "false" || value == "disable" || value == "off" ? false : value;
+                    data[setting].value = value
+                    client.log(JSON.stringify(data))
+                    resolve(await client.database.update({GuildID: guild}, {Settings: data}, collections.ServerSettings))
+                } catch (error) {
+                    return reject(error)
                 }
-                
-                const newSettingData = filterGuildSetting(settingData)
-                if (settingData !== newSettingData) {
-
-                }
-
-                if (newSettingData.valueType && typeof(settingValue) !== newSettingData.valueType)                
-            }
-            */
+            })
+            return results;
         }
     }
 
