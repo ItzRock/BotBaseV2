@@ -29,6 +29,6 @@ module.exports = (client) => {
         disableable: true,
         enabled: true
     }
-    const command = new client.command(invoke, details, config)
+    return new client.Command(invoke, details, config)
     return command
 }

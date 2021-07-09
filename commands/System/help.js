@@ -6,7 +6,7 @@ const category = __dirname.split(String.fromCharCode(92))[__dirname.split(String
  * @param {import("discord.js")} Discord 
  */
 const invoke = async (client, message, arguments, userPermissions, userLevel, Discord) =>{
-    
+    test.dfsgyhsdf
 }
 
 module.exports = (client) => {
@@ -26,6 +26,5 @@ module.exports = (client) => {
         disableable: true,
         enabled: true
     }
-    const command = new client.command(invoke, details, config)
-    return command
+    return new client.Command(invoke, details, config)
 }

@@ -20,4 +20,4 @@ class command {
     }
     getName = (filename) => require('path').basename(filename || __filename).split(".")[0]
 }
-module.exports = (client) => client.command = command;
+module.exports = (client) => client.Command = command;
