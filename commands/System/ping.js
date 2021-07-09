@@ -8,14 +8,12 @@ const category = __dirname.split("\\")[__dirname.split("\\").length - 1].split("
 const invoke = async (client, message, arguments, userPermissions, userLevel, Discord) =>{
     const customHTTPServices = [ // Add as many as you wish.
         {name: "Google", URL: "https://google.com", message: `Calculating`},
-        {name: "GitHub", URL: "https://github.com", message: `Calculating`},
-        
     ]
     const connections = [ // Do not modify (unless its the default message)
         {name: `${client.user.username} v${client.version}`, message: `Calculating`},
         {name: `API Latency`, message: `Calculating`}
     ]
-    const embed = client.embed(`${client.user.username} Connections`);
+    const embed = new client.Embed(`${client.user.username} Connections`);
     async function update(){
         embed.spliceFields(0, embed.fields.length)
         connections.forEach(service => {

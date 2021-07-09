@@ -33,7 +33,7 @@ module.exports = (client) => {
             async function sendEmbed(channel, rejectedChannel, err) {
                 if (channel && channel !== undefined && channel !== null) {
                     await channel.send(`<@${channel.guild.ownerID}> MissingPermissions to send messages to channel: ${rejectedChannel}`)
-                    await channel.send(client.errorEmbed({name: "", message: err}))
+                    await channel.send({embeds: [new client.ErrorEmbed(err)]})
                     return true;
                 } else return false; // Bot can't send messages in any channel it can see
             };
@@ -57,7 +57,7 @@ module.exports = (client) => {
                         } else if (guildLogsChannel && guildLogsChannel !== undefined && guildLogsChannel !== null) { // Send to logs channel
                             
                             guildLogsChannel.send(`<@${rejectionChannel.guild.ownerID}> MissingPermissions to send messages to channel: ${rejectionChannel}`)
-                            guildLogsChannel.send(client.errorEmbed({name: "", message: noStackCleanedErr}))
+                            guildLogsChannel.send({embeds: [new client.ErrorEmbed(noStackCleanedErr)]})
                            
                             immediateReturn = !( await sendEmbed(firstSendableChannel, rejectionChannel, noStackCleanedErr) );
                             if (immediateReturn === true) return;

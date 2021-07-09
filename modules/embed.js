@@ -1,39 +1,31 @@
-const { MessageEmbed } = require("discord.js");
+const Discord = require("discord.js")
+/** @param {Discord.Client} client */
 module.exports = (client) => {
-  client.embedColour = function (safe) {
-    const array = [
-      "#f54242",
-      "#4287f5",
-      "#e042f5",
-      "#5d42f5",
-      "#42f59e",
-      "#f5d142",
-      "#ff8133",
-    ]
-    if (safe) array.shift()
-    return array[Math.floor(Math.random()*array.length)];
-  };
-  client.errorEmbed = (error) => {
-    const avatarURL = client.user.avatarURL()
-    const clientUsername = client.user.username
-    const embed = new MessageEmbed()
-      .setAuthor(clientUsername, avatarURL)
-      .setFooter(clientUsername, avatarURL)
-      .setTimestamp()
-      .setColor("RED")
-      .setTitle(`${client.config.emojis.exclamation} An Error has occurred`)
-      .setDescription(`\`${error.name === "" ? error.name : error.name + ': '}${error.message}\`\nIf this continues to happen please join our support server by running \`;server\``)
-    return embed
-  }
-  client.embed = function (title) {
-    const clientUser = client.user.username;
-    const avatar = client.user.avatarURL();
-    const embed = new MessageEmbed()
-      .setAuthor(`${clientUser}`, avatar)
-      .setFooter(`${clientUser}`, avatar)
-      .setTitle(title)
-      .setColor(client.embedColour())
-      .setTimestamp()
-    return embed;
-  }
+    client.Colour = () => Math.floor(Math.random()*16777215);
+    class Embed extends Discord.MessageEmbed {
+        constructor(title){
+            super();
+            this.footer = {
+                text: client.user.username,
+                iconURL: client.user.avatarURL({size: 4096, dynamic: true, format: "png"})
+            };
+            this.author = {
+                name: client.user.username,
+                iconURL: client.user.avatarURL({size: 4096, dynamic: true, format: "png"}),
+                url: undefined
+            };
+            this.timestamp = Date.now();
+            this.title = title || null;
+            this.color = client.Colour()
+        }
+    }
+    class ErrorEmbed extends Embed{
+        constructor(error){
+            super();
+            this.color = 15548997
+            this.description = `An error has occured! \`${error.name} : ${error.message}\`\nIf this error keeps occuring please report this in the support server for this bot found by running \`${client.config.defaults.prefix.value}server\``;
+        }
+    }
+    client.ErrorEmbed = ErrorEmbed;
+    client.Embed = Embed;
 }

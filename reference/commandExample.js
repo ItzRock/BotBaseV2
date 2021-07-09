@@ -1,5 +1,5 @@
 const filename = require('path').basename(__filename).split(".")[0]
-const category = __dirname.split("\\")[__dirname.split("\\").length - 1].split("/")[__dirname.split("/").length - 1]
+const category = __dirname.split(String.fromCharCode(92))[__dirname.split(String.fromCharCode(92)).length - 1].split("/")[__dirname.split("/").length - 1]
 /**
  * @param {import("discord.js").Client} client 
  * @param {import("discord.js").Message} message 

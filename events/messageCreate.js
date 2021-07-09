@@ -1,3 +1,9 @@
+/**
+ * 
+ * @param {import("discord.js").Client} client 
+ * @param {import("discord.js").Message} message 
+ * @returns 
+ */
 module.exports = async (client, message) => {
   if (message.author.bot) return;
 
@@ -54,8 +60,9 @@ module.exports = async (client, message) => {
   client.cmd(msg);
 
   try {
-    cmd.invoke(client, message, arguments, message.member.permissions.toArray(), level, require("discord.js"))
+    const data = cmd.invoke(client, message, arguments, message.member.permissions.toArray(), level, require("discord.js"))
+    if(data.catch) data.catch(error => message.reply({embeds: [new client.ErrorEmbed(error)]}))
   } catch (error) {
-    message.channel.send(client.errorEmbed(error))
+    message.reply({embeds: [new client.ErrorEmbed(error)]})
   }
 }

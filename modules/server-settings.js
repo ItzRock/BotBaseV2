@@ -67,22 +67,40 @@ module.exports = async (client) => {
     }
     client.settings = {
         create: async (guild) => {
-            const data = await client.database.write({GuildID: guild, Settings: defaults}, collections.ServerSettings)
-            return data
+            const creationData = new Promise(async (resolve, reject) => {
+                try {
+                    const data = await client.database.write({GuildID: guild, Settings: defaults}, collections.ServerSettings)
+                    if (!data || data === null) return reject("No data returned upon creation");
+                    else return resolve(data);
+                } catch (error) {
+                    return reject(error);
+                };
+            })
+
+            return creationData
         },
         fetch: async (guild) => {
-            const data = await client.database.read({GuildID: guild}, collections.ServerSettings)
-            if (!data || data.length <= 0) {
-                const creationData = await client.settings.create(guild)
-                return creationData
-            } else {
-                const newData = await filterGuildData(data[0])
-                if (data[0] !== newData) {
-                    const dataUpdateResult = await client.database.update({GuildID: guild}, {Settings: newData.Settings}, collections.ServerSettings)
+            const fetchedData = new Promise(async (resolve, reject) => {
+                try {
+                    const data = await client.database.read({GuildID: guild}, collections.ServerSettings);
+                    if (!data || data.length <= 0) {
+                        const creationData = await client.settings.create(guild);
+                        return resolve(creationData);
+                    } else {
+                        const newData = await filterGuildData(data[0]);
+                        if (!newData || newData === null) return reject("No data returned from filterGuildData");
+                        else if (data[0] !== newData) {
+                            const dataUpdateResult = await client.database.update({GuildID: guild}, {Settings: newData.Settings}, collections.ServerSettings);
+                        };
+                        
+                        return resolve(newData);
+                    };
+                } catch (error) {
+                    return reject(error);
                 };
-                
-                return newData
-            }
+            });
+
+            return fetchedData
         },
         update: async (guild, setting, value) => {
             const results = new Promise(async (resolve, reject) => {
@@ -93,10 +111,9 @@ module.exports = async (client) => {
                     if(typeof(value) == "string") value = value.toLowerCase()
                     if(typeof(value) !== "object" && data[setting].valueType == "boolean") value = value == "true" ||  value == "on" || value == "enable"  ? true : value == "false" || value == "disable" || value == "off" ? false : value;
                     data[setting].value = value
-                    client.log(JSON.stringify(data))
                     resolve(await client.database.update({GuildID: guild}, {Settings: data}, collections.ServerSettings))
                 } catch (error) {
-                    return reject(error)
+                    return reject(error);
                 }
             })
             return results;

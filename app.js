@@ -10,7 +10,7 @@
 
 const { Client, Intents } = require("discord.js");
 const client = new Client({ 
-    intents: Intents.ALL, // All Intents will be allowed
+    intents: ["DIRECT_MESSAGES", "GUILDS", "GUILD_BANS", "GUILD_EMOJIS", "GUILD_INTEGRATIONS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_WEBHOOKS"], // You may need to configure this based off what you want
     partials: ["MESSAGE", "CHANNEL"],
     allowedMentions: { 
         parse: ["everyone", "roles"] // Incase the bot has vulnerability which allows it to send unparsed user data, this will result in the bot not pinging a mass number of users. Remove any if needed.
