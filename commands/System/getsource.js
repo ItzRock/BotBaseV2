@@ -1,6 +1,7 @@
 const filename = require('path').basename(__filename).split(".")[0]
 const category = __dirname.split(String.fromCharCode(92))[__dirname.split(String.fromCharCode(92)).length - 1].split("/")[__dirname.split("/").length - 1]
 const { promisify } = require("util");
+const fs = require("fs")
 const readFile = promisify(require("fs").readFile); 
 /**
  * @param {import("discord.js").Client} client 
@@ -16,7 +17,7 @@ const invoke = async (client, message, arguments, userPermissions, userLevel, Di
         }
     });
     const directory = `​${cmd.category}/${cmd.name}.js`;
-    const data = await readFile(`./commands/${directory}`, "utf8");
+    const data = fs.readFileSync(`./commands/${directory}`, "utf8");
     const clean = await client.clean(client, data);
     message.channel.send({
         files: [

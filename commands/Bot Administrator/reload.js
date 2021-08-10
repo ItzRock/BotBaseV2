@@ -7,7 +7,6 @@ const category = __dirname.split("\\")[__dirname.split("\\").length - 1].split("
  */
 const invoke = async (client, message, arguments, userPermissions, userLevel, Discord) =>{
     const command = client.fetchCommand(arguments[0]);
-    client.log(JSON.stringify(command))
     if(command !== undefined) {
         let response = await client.unload("cmd", command.name);
         if(response) return message.reply(`Error Unloading: ${response}`);

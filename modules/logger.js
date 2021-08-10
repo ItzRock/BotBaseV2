@@ -6,7 +6,7 @@ function invoke(client) {
         const timestamp = `[${moment().format("YYYY-MM-DD HH:mm")}]:`;
         const message = `${timestamp} ${colour(type.toUpperCase())} ${content} `
         const discordMessage = `${timestamp} ${(type.toUpperCase())} ${content} `
-        if(type !== "ERROR" && client.readyAt !== null) client.channels.cache.get(client.config.debug.console).send(`\`\`\`js\n${discordMessage}\n\`\`\``)
+        /*if(type !== "ERROR") client.channels.cache.get(client.config.debug.console).send(`\`\`\`js\n${discordMessage}\n\`\`\``)*/
         if(type == "ERROR" && client.readyAt !== null) client.channels.cache.get(client.config.debug.error).send({
             files: [
                 {
@@ -15,7 +15,6 @@ function invoke(client) {
                 }
             ]
         })
-        
         return console.log(message)
     }
     client.log = log;
