@@ -34,5 +34,4 @@ module.exports = (client) => {
         enabled: true
     }
     return new client.Command(invoke, details, config)
-    return command
 }

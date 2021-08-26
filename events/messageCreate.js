@@ -6,8 +6,8 @@
  */
 module.exports = async (client, message) => {
   if (message.author.bot) return;
-
-  const settings = message.channel.type == "dm" ? client.config.defaults : (await client.settings.fetch(message.guild.id)).Settings;
+  
+  const settings = message.channel.type.toLowerCase() == "dm" ? client.config.defaults : (await client.settings.fetch(message.guild.id)).Settings;
   message.settings = settings
   if (message.content.includes(client.user.toString())) return message.reply(`:wave: my prefix is \`${settings.prefix.value}\``)
   if (message.content.indexOf(settings.prefix.value) !== 0) return;
@@ -52,15 +52,11 @@ module.exports = async (client, message) => {
   if (missingPermissions.length !== 0) return message.reply(`${message["-"]} Invalid Bot Permissions. Missing perms for this command: \`\`\`\n${missingPermissions.join(" ")}\n\`\`\``)
   if (arguments.length < cmd.requiredArguments) return message.reply(client.invalidArguments(cmd.name))
 
-  let msg
-  if (await message.channel.type == "dm") {
-    msg = `GUILD: ${message.channel.type} | L${level} ${message.author.username} ran ${cmd.name}`
-  }
-  else msg = `GUILD: ${message.guild.name} | L${level} ${message.author.username} ran ${cmd.name}`
-  client.cmd(msg);
+  const guild = message.channel.type.toLowerCase() == "dm" ? message.channel.type : message.guild.name
+  client.cmd(`GUILD: ${guild} | L${level} ${message.author.username} ran ${cmd.name}`);
 
   try {
-    const data = cmd.invoke(client, message, arguments, message.member.permissions.toArray(), level, require("discord.js"))
+    const data = cmd.invoke(client, message, arguments, message.member == null ? null :message.member.permissions.toArray(), level, require("discord.js"))
     if(data.catch) data.catch(error => message.reply({embeds: [new client.ErrorEmbed(error)]}))
   } catch (error) {
     message.reply({embeds: [new client.ErrorEmbed(error)]})
