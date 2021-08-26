@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "nodemon .",
-    "start": "pm2 start app.js",
-    "stop": "pm2 stop app.js",
+    "start": "pm2 start Application.js",
+    "stop": "pm2 stop Application.js",
     "watch": "pm2 monit"
   },
   "author": "Anthony",

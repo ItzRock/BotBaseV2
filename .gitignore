@@ -1,5 +1,5 @@
 node_modules/
-keys.json
+Keys.json
 .VSCodeCounter/*
-verify-apis.js
+VerifyAPIs.js
 servereval.js

@@ -22,10 +22,10 @@ client.cmds = new Map();
 client.cmdsAliases = new Map();
 client.modules = new Map();
 
-client.functions = require("./handlers/functions.js")(client);
-client.modulesLoader = require('./handlers/module-handler')(client);
+client.functions = require("./handlers/Functions.js")(client);
+client.modulesLoader = require('./handlers/ModuleHandler.js')(client);
 
-client.configuration = require("./handlers/configuration")(client);
+client.configuration = require("./handlers/Configuration")(client);
 client.config = client.configuration;
 
 const { promisify } = require("util");

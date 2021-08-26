@@ -3,7 +3,7 @@ const fs = require("fs");
 const readdir = promisify(fs.readdir);
 module.exports = async (client) => {
     client.modules = new Map();
-    client.load("mod", "logger");  
+    client.load("mod", "Logger");  
     const modules = await readdir('./modules')
     modules.forEach(moduleName => {
         try {
