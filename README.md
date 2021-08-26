@@ -38,7 +38,7 @@ NOT FINISHED!!
 - <a href="https://github.com/ItzRock/BotBaseV2/tree/master/events">events</a> (Directory) Stores the discord.js event handlers to be used on that specific event (The name of the file)
 - <a href="https://github.com/ItzRock/BotBaseV2/tree/master/reference">reference</a> (Directory) Stores references for some of the features.
 - <a href="https://github.com/ItzRock/BotBaseV2/tree/master/handlers">handlers</a> (Directory) Includes the loaders, functions, configuration, etc.
-- <a href="https://github.com/ItzRock/BotBaseV2/blob/master/app.js">app.js</a> Main application
+- <a href="https://github.com/ItzRock/BotBaseV2/blob/master/Application.js">Application.js</a> Main Application
 
 <!-- LICENSE -->
 ## License
@@ -47,7 +47,7 @@ Distributed under the Apache License 2.0 License. See `LICENSE` for more informa
 
 ## API Documentation
 ### Functions: 
-Too many to write here, see <a href="https://github.com/ItzRock/BotBaseV2/tree/master/handlers/functions.js">handlers/functions.js</a> for more.
+Too many to write here, see <a href="https://github.com/ItzRock/BotBaseV2/tree/master/handlers/Functions.js">handlers/functions.js</a> for more.
 
 ### Custom Events
 Discord.js's Client class extends off of node.js's event emitter so you can run `client.emit` and emit custom classes. Currently there are two
